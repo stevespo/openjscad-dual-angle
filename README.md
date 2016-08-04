@@ -4,7 +4,8 @@ Simple OpenJSCAD script to help visualize bowling ball layouts using the Dual An
 Goto http://openjscad.org/ and drag/drop the script into the upload box.  
 There are some pan/move instructions in the left pane, and you can hide the source with the little slider control.
 
-Enter params and hit Update.  That's about it.  
+Enter your layout/release params and hit Update.  That's about it.  
+
 I have very little time invested in this, but was looking for something to do some parametric modeling.
 Perhaps somebody else will find it useful, and it may evolve over time.
 
