@@ -1,3 +1,5 @@
+// https://github.com/stevespo/openjscad-dual-angle
+
 // title      : dual-angle.jscad
 // version    : v1.01
 // author     : stevespo
