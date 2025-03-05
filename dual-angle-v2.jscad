@@ -1,7 +1,7 @@
 // https://github.com/stevespo/openjscad-dual-angle
 
-// title      : dual-angle.jscad
-// version    : v1.01
+// title      : dual-angle-v2.jscad
+// version    : v2.0
 // author     : stevespo
 
 // Overall, everything seems to work fairly well, but very limited testing!
@@ -63,12 +63,7 @@ function distance(angle=0) {
 }
 
 function ball(cgl=[pin_l,0]) {
-    return scale([1,1,1], 
-        union(
-	    sphere({radius: ball_d/2.01, segments: 64}), 
-            pin(), cg(cgl), mb()
-        )
-    );
+    return [sphere({radius: ball_d/2.01, segments: 64}), pin(), cg(cgl), mb()]
 }
 
 function trimTranslateToSurface(o, height) {
@@ -113,27 +108,27 @@ function balance_hole(position, da=[45,5,30], pap=[5,1]) {
 }
 
 function layout(da=[45,5,30], pap=[5,1]) {
-    return union(
+    return [
         pin_to_mb(),
         da_line(da[0]),
         val_line(da),
-        grip_lines(da, pap));
+        grip_lines(da, pap)];
 }
 
 // to keep lines thin, apply after scaling ball
 function pin_to_mb() {
-    return colorize(colorNameToRgb("gray"), 
+    return colorize(colorNameToRgb("white"), 
 	rotate([0,degToRad(90),0], circle3d(ball_d/2)));
 }
 
 function da_line(a=45) {
-    return colorize(colorNameToRgb("black"), 
+    return colorize(colorNameToRgb("white"), 
         rotate([0,degToRad(90),0], 
         rotate([degToRad(-a),0,0], circle3d(ball_d/2))));
 }
 
 function val_line(da=[45,5,30]) {
-    return colorize(colorNameToRgb("black"), 
+    return colorize(colorNameToRgb("white"), 
         rotate([0, degToRad(90), 0],
         rotate([degToRad(-da[0]+90), 0, 0],
         rotate([0, degToRad(angle(da[1])), 0],
@@ -142,7 +137,7 @@ function val_line(da=[45,5,30]) {
 }
 
 function grip_lines(da=[45,5,30], pap=[5,1]) {
-    return colorize(colorNameToRgb("blue"),
+    return colorize(colorNameToRgb("gray"),
         // pap
         rotate([degToRad(angle(da[1])),0,degToRad(da[0])],
 	    translate([0, 0, ball_d/2-marker_h/2],
@@ -180,9 +175,8 @@ function hole(od=31/32, id=0.75) {
 }
 
 function shole(id=0.75) {
-    return scale([1,1,1],
-	translate([0, 0, ball_d/2-marker_h/2], 
-	    cylinder({height: marker_h, radius: id/2})));
+    return translate([0, 0, ball_d/2-marker_h/2], 
+	cylinder({height: marker_h, radius: id/2}));
 }
 
 function holes(span, da=[45,5,30], pap=[5,1]) {
@@ -246,15 +240,9 @@ const main = (p) => {
         pap[0] = -p.paph;
     }
     
-    //span = { mf: 4.75, rf: 5.0, insert: true, slug: true };
-    //da = [45, 5, 30];
-    //pap = [5.5, 0.5];
-
-    // return ball(cgl);
-    // return layout(da, pap);
-    // return holes(span, da, pap);
 
     // better default scaling/rotation/positioning here would be nice
+    /*
     return translate([0,0,0], 
         union(
             ball(cgl), 
@@ -262,6 +250,9 @@ const main = (p) => {
             holes(span, da, pap)
         )
     );
+    */
+
+    return [ball(cgl), layout(da, pap), holes(span, da, pap)]
     
 }
 
