@@ -1,7 +1,7 @@
 # openjscad-dual-angle
 Simple OpenJSCAD script to help visualize bowling ball layouts using the Dual Angle system
 
-Goto http://openjscad.org/ and drag/drop the script into the upload box.  
+Goto http://openjscad.xyz/ and drag/drop the V2 script into the upload box.  
 There are some pan/move instructions in the left pane, and you can hide the source with the little slider control.
 
 Enter your layout/release params and hit Update.  That's about it.  
