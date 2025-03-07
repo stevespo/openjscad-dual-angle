@@ -166,7 +166,7 @@ function hole(od=31/32, id=0.75) {
     var h = [];
     if (od > id) {
         h.push(scale([1,1,1],
-            colorize(colorNameToRgb("aqua"),
+            colorize(colorNameToRgb("gray"),
 		translate([0, 0, ball_d/2-marker_h/2],
                     cylinder({height: marker_h, radius: od/2})))));
     }
