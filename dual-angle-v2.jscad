@@ -27,7 +27,7 @@ var mb_d = 0.25;
 var pap_d = 0.25;
 var bh_d = 0.75;
 var pin_l = 3.375;
-var ball_resolution = 50;
+var ball_resolution = 100;
 
 const jscad = require('@jscad/modeling')
 const { cube, cuboid, sphere, cylinder } = jscad.primitives
@@ -42,7 +42,7 @@ const { degToRad, radToDeg } = jscad.utils
 
 function fullCircle3d(r) {
     return subtract(
-        sphere({radius: r, segments: 64}), 
+        sphere({radius: r, segments: ball_resolution}), 
         translate([0,0,r*1.005], cube({size: r*2})),
         translate([0,0,-r*1.005], cube({size: r*2})));
 }
@@ -63,7 +63,10 @@ function distance(angle=0) {
 }
 
 function ball(cgl=[pin_l,0]) {
-    return [sphere({radius: ball_d/2.01, segments: 64}), pin(), cg(cgl), mb()]
+    return [
+	colorize(colorNameToRgb("darkslateblue"), 
+	    sphere({radius: ball_d/2.002, segments: 64})), 
+	pin(), cg(cgl), mb()]
 }
 
 function trimTranslateToSurface(o, height) {
@@ -213,10 +216,10 @@ const getParameterDefinitions = () => {
     { name: 'da', type: 'float', initial: 45, caption: "Drill Angle:" },
     { name: 'p2p', type: 'float', initial: 5, caption: "Pin to PAP:" },
     { name: 'val', type: 'float', initial: 30, caption: "VAL:" },
-    { name: 'paph', type: 'float', initial: 5.5, caption: "PAP horizontal" },
-    { name: 'papv', type: 'float', initial: 0.5, caption: "PAP vertical" },
-    { name: 'mf', type: 'float', initial: 4.75, caption: "Span, middle finger" },
-    { name: 'rf', type: 'float', initial: 5.0, caption: "Span, ring finger" },
+    { name: 'paph', type: 'float', initial: 5.0, caption: "PAP horizontal" },
+    { name: 'papv', type: 'float', initial: 0.75, caption: "PAP vertical" },
+    { name: 'mf', type: 'float', initial: 4.625, caption: "Span, middle finger" },
+    { name: 'rf', type: 'float', initial: 4.875, caption: "Span, ring finger" },
     { name: 'cgl', type: 'float', initial: 3.5, caption: "CG distance:" },
     { name: 'cgo', type: 'float', initial: 0.0, caption: "CG offset:" },
     { name: 'hand', type: 'choice', caption: 'Throws with?', values: [0,1], captions: ["Right Hand", "Left Hand"], initial: 0 }  ];
